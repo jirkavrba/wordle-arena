@@ -4,7 +4,8 @@
   "type": "module",
   "scripts": {
     "lint": "eslint .",
-    "start": "node src/main.ts"
+    "start": "node src/main.ts",
+    "cron": "node src/cron.ts"
   },
   "devDependencies": {
     "@types/node": "^24.12.4",
@@ -15,6 +16,7 @@
   "dependencies": {
     "@napi-rs/canvas": "^1.0.0",
     "date-fns": "^4.4.0",
+    "node-cron": "^4.2.1",
     "zod": "^4.4.3"
   }
 }

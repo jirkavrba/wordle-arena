@@ -10,7 +10,7 @@ import { Discord } from './discord/Discord.ts';
 import wordleList from './data/wordle-list.json' with { type: 'json' };
 import { createResultsOverview } from './canvas/createResultsOverview.ts';
 
-const main = async () => {
+export const main = async () => {
   // load discord
   const webhooksPath = path.join(process.cwd(), 'webhooks.json');
   if (!existsSync(webhooksPath)) {
@@ -33,7 +33,7 @@ const main = async () => {
   const bots: ASolverBot[] = createAllBots(wordle);
 
   // let bots solve and sort the results
-  console.log(`Bot results:\n`);
+  console.log(`Bot results of ${today.toLocaleDateString()}:\n`);
 
   const botResults = bots.map((bot, index) => {
     const result = bot.solve();
@@ -100,4 +100,9 @@ const main = async () => {
   discord.sendMessage(content, pngData, 'overview.png');
 };
 
-main();
+// Source - https://stackoverflow.com/a/6090287
+// Posted by Stephen Emslie, modified by community. See post 'Timeline' for change history
+// Retrieved 2026-06-13, License - CC BY-SA 4.0
+if (import.meta.main) {
+  main();
+}
