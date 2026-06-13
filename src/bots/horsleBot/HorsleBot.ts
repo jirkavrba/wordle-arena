@@ -5,7 +5,7 @@ export class HorsleBot extends ASolverBot {
     return {
       name: 'Horsle',
       author: 'Knedla',
-      description: 'This horse is super hard',
+      description: 'This horse game is super hard',
     };
   }
 
