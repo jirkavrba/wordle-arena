@@ -1,4 +1,4 @@
-import { ASolverBot, type BotMeta } from "../allowedContext.ts";
+import { ASolverBot, type BotMeta } from '../allowedContext.ts';
 
 /**
  * This is a template for making your own solver bot. Copy this folder and change its name.
@@ -23,9 +23,9 @@ export class CheatingBot extends ASolverBot {
 
   protected _about(): BotMeta {
     return {
-      name: "Cheating bot",
-      author: "Jirka Vrba",
-      description: "Secret :3",
+      name: 'Cheating bot',
+      author: 'Jirka Vrba',
+      description: 'Secret :3',
     };
   }
 
@@ -42,6 +42,6 @@ export class CheatingBot extends ASolverBot {
 
   protected async _pickWord(): Promise<string> {
     // write your custom bot logic here
-    return this.correctWord ?? "cheats";
+    return this.correctWord ?? 'cheats';
   }
 }

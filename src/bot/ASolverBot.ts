@@ -1,7 +1,7 @@
-import { BOT_STATUS, type BotResult } from "./BotResult.ts";
-import { type Guess } from "../nytimes/Guess.ts";
-import { Wordle } from "../nytimes/Wordle.ts";
-import type { BotMeta } from "./BotMeta.ts";
+import { BOT_STATUS, type BotResult } from './BotResult.ts';
+import { type Guess } from '../nytimes/Guess.ts';
+import { Wordle } from '../nytimes/Wordle.ts';
+import type { BotMeta } from './BotMeta.ts';
 
 export abstract class ASolverBot {
   private _wordle: Wordle;
