@@ -16,7 +16,7 @@ export abstract class ASolverBot {
   // Utility methods
 
   /**
-   * Returns true when a word is in the word list
+   * Returns true when a word is a valid choice in Wordle
    */
   protected _isWordValid(word: string): boolean {
     this._checkedValidWords = true;
@@ -24,7 +24,7 @@ export abstract class ASolverBot {
   }
 
   /**
-   * Returns the entire word list
+   * Returns the entire Wordle word list
    */
   protected _getValidWords(): string[] {
     this._usedWordList = true;

@@ -10,6 +10,7 @@ import { Discord } from './discord/Discord.ts';
 import wordleList from './data/wordle-list.json' with { type: 'json' };
 import { createResultsOverview } from './canvas/createResultsOverview.ts';
 import { stringifySolvingTime } from './utils/stringifySolvingTime.ts';
+import { stringifyBotResults } from './utils/stringifyBotResults.ts';
 
 const tryLoadDiscord = () => {
   const webhooksPath = path.join(process.cwd(), 'webhooks.json');
@@ -24,6 +25,43 @@ const tryLoadDiscord = () => {
     .parse(JSON.parse(readFileSync(webhooksPath, 'utf8')));
 
   return new Discord('Wordle Arena', webhooks);
+};
+
+const generateOverviewMessage = (botResults: BotResult[]) => {
+  const botResultStatusGroups = Object.groupBy(
+    botResults,
+    (result) => result.status,
+  );
+
+  const solvedGuessCountGroups = Object.groupBy(
+    botResultStatusGroups.solved ?? [],
+    (result) => result.guesses.length,
+  );
+
+  let content = `Today's Wordle Arena report:${Discord.NewLine}`;
+
+  let isFirst = true;
+  for (let i = 1; i <= Wordle.AttemptCount; i++) {
+    const results = solvedGuessCountGroups[i];
+    if (results === undefined) continue;
+    if (isFirst) {
+      content += ':crown:';
+      isFirst = false;
+    }
+    content += `${i}/${Wordle.AttemptCount}: ${stringifyBotResults(results)}${Discord.NewLine}`;
+  }
+
+  if (botResultStatusGroups.failed !== undefined) {
+    content += `X/${Wordle.AttemptCount}: ${stringifyBotResults(botResultStatusGroups.failed)}${Discord.NewLine}`;
+  }
+
+  if (botResultStatusGroups.crashed !== undefined) {
+    content += `Crashed :wilted_rose:: ${stringifyBotResults(botResultStatusGroups.crashed)}${Discord.NewLine}`;
+  }
+
+  content += `${Discord.NewLine}Make your own bot: [github/wordle-arena](<https://github.com/Rodak123/wordle-arena>)`;
+
+  return content;
 };
 
 export const main = async () => {
@@ -61,61 +99,22 @@ export const main = async () => {
     }),
   );
 
+  botResults.sort((a, b) => {
+    // sort by guess count
+    const guessOrder = a.guesses.length - b.guesses.length;
+    if (guessOrder !== 0) return guessOrder;
+
+    // sort by time
+    const timeOrder = a.solvingTimeMs - b.solvingTimeMs;
+    return timeOrder;
+  });
+
   if (discord !== null) {
+    const message = generateOverviewMessage(botResults);
+    const overviewImage = await createResultsOverview(botResults);
+
     // report to discord
-    botResults.sort((a, b) => {
-      // sort by guess count
-      const guessOrder = a.guesses.length - b.guesses.length;
-      if (guessOrder !== 0) return guessOrder;
-
-      // sort by time
-      const timeOrder = a.solvingTimeMs - b.solvingTimeMs;
-      return timeOrder;
-    });
-
-    const botResultStatusGroups = Object.groupBy(
-      botResults,
-      (result) => result.status,
-    );
-
-    const solvedGuessCountGroups = Object.groupBy(
-      botResultStatusGroups.solved ?? [],
-      (result) => result.guesses.length,
-    );
-
-    const stringifyResults = (results: BotResult[]) =>
-      results
-        .map(
-          (result) =>
-            `**${result.meta.name}** (${stringifySolvingTime(result.solvingTimeMs)})`,
-        )
-        .join(', ');
-
-    let content = `Today's Wordle Arena report:${Discord.NewLine}`;
-
-    let isFirst = true;
-    for (let i = 1; i <= Wordle.AttemptCount; i++) {
-      const results = solvedGuessCountGroups[i];
-      if (results === undefined) continue;
-      if (isFirst) {
-        content += ':crown:';
-        isFirst = false;
-      }
-      content += `${i}/${Wordle.AttemptCount}: ${stringifyResults(results)}${Discord.NewLine}`;
-    }
-
-    if (botResultStatusGroups.failed !== undefined) {
-      content += `X/${Wordle.AttemptCount}: ${stringifyResults(botResultStatusGroups.failed)}${Discord.NewLine}`;
-    }
-
-    if (botResultStatusGroups.crashed !== undefined) {
-      content += `Crashed :wilted_rose:: ${stringifyResults(botResultStatusGroups.crashed)}${Discord.NewLine}`;
-    }
-
-    // generate overview image
-    const pngData = await createResultsOverview(botResults);
-
-    discord.sendMessage(content, pngData, 'overview.png');
+    await discord.sendMessage(message, overviewImage, 'overview.png');
   }
 };
 

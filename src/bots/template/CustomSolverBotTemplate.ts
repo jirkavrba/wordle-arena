@@ -1,4 +1,9 @@
-import { ASolverBot, type Guess, type BotMeta } from '../allowedContext.ts';
+import {
+  ASolverBot,
+  type Guess,
+  type BotMeta,
+  LETTER_STATUS,
+} from '../allowedContext.ts';
 
 /**
  * This is a template for making your own solver bot. Copy this folder and change its name.
@@ -32,11 +37,26 @@ export class CustomSolverBot extends ASolverBot {
   }
 
   protected async _pickWord(
-    guessIndex: number,
-    previousGuesses: Guess[],
+    guessIndex: number, // the index of the current guess (from 0 to 5)
+    previousGuesses: Guess[], // an array of previous guesses, each guess has 5 letters and each letter has its status
   ): Promise<string> {
+    if (
+      previousGuesses.length > 0 &&
+      previousGuesses[0][0].status === LETTER_STATUS.MISSING
+    ) {
+      // the first letter of the first guess was missing from the word (grey color)
+    }
+
     console.log('Current guess index: ', guessIndex);
     console.log('Previous guesses: ', previousGuesses);
+
+    // utility methods:
+    const wordList = this._getValidWords();
+    console.log('All valid words in wordle: ', wordList);
+
+    const isValid = this._isWordValid('amazing');
+    console.log('Is "amazing" valid:', isValid);
+
     // write your custom bot logic here
     const word: string = 'hello';
     return word;
