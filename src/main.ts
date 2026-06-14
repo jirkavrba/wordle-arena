@@ -9,6 +9,7 @@ import { Discord } from './discord/Discord.ts';
 
 import wordleList from './data/wordle-list.json' with { type: 'json' };
 import { createResultsOverview } from './canvas/createResultsOverview.ts';
+import { stringifySolvingTime } from './utils/stringifySolvingTime.ts';
 
 const tryLoadDiscord = () => {
   const webhooksPath = path.join(process.cwd(), 'webhooks.json');
@@ -65,7 +66,11 @@ export const main = async () => {
     botResults.sort((a, b) => {
       // sort by guess count
       const guessOrder = a.guesses.length - b.guesses.length;
-      return guessOrder;
+      if (guessOrder !== 0) return guessOrder;
+
+      // sort by time
+      const timeOrder = a.solvingTimeMs - b.solvingTimeMs;
+      return timeOrder;
     });
 
     const botResultStatusGroups = Object.groupBy(
@@ -80,7 +85,10 @@ export const main = async () => {
 
     const stringifyResults = (results: BotResult[]) =>
       results
-        .map((result) => `**${result.meta.name}** by ${result.meta.author}`)
+        .map(
+          (result) =>
+            `**${result.meta.name}** (${stringifySolvingTime(result.solvingTimeMs)})`,
+        )
         .join(', ');
 
     let content = `Today's Wordle Arena report:${Discord.NewLine}`;
