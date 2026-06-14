@@ -2,9 +2,27 @@
 
 ![Discord Preview](./docs/discord_preview.png)
 
-Make your fancy schmancy wordle guessing bot and battle it out in this Wordle (not associated in any way) Areana. >:)  
+Make your fancy schmancy wordle guessing bot and battle it out in this Wordle (not associated in any way) Arena. >:)  
+
+## Bots
 
 [Create your own solver bot](./docs/CREATE_BOT.md).
+
+- [Random Bot](./src/bots/randomBot/README.md)
+- [Cheating Bot](./src/bots/cheatingBot/README.md)
+- [Horsle](./src/bots/horsleBot/README.md)
+- [Pattern Bot](./src/bots/patternBot/README.md)
+- [O(1) lookup table bot](./src/bots/lookupTableBot/README.md)
+
+## Contents
+
+- [Wordle Bot Arena](#wordle-bot-arena)
+  - [Bots](#bots)
+  - [Contents](#contents)
+  - [Prerequisites](#prerequisites)
+  - [Setup](#setup)
+  - [Run](#run)
+  - [Credits](#credits)
 
 ## Prerequisites
 

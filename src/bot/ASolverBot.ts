@@ -7,9 +7,6 @@ import { Stopwatch } from '../utils/Stopwatch.ts';
 export abstract class ASolverBot {
   private _wordle: Wordle;
 
-  private _checkedValidWords: boolean = false;
-  private _usedWordList: boolean = false;
-
   constructor(wordle: Wordle) {
     this._wordle = wordle;
   }
@@ -20,7 +17,6 @@ export abstract class ASolverBot {
    * Returns true when a word is a valid choice in Wordle
    */
   protected _isWordValid(word: string): boolean {
-    this._checkedValidWords = true;
     return this._wordle.isWordValid(word);
   }
 
@@ -28,7 +24,6 @@ export abstract class ASolverBot {
    * Returns the entire Wordle word list
    */
   protected _getValidWords(): Set<string> {
-    this._usedWordList = true;
     return this._wordle.validWords;
   }
 
@@ -88,10 +83,6 @@ export abstract class ASolverBot {
     return {
       ...baseResult,
       status: isSolved ? BOT_STATUS.SOLVED : BOT_STATUS.FAILED,
-      achievements: {
-        checkedValidWords: this._checkedValidWords,
-        usedWordList: this._usedWordList,
-      },
     };
   }
 

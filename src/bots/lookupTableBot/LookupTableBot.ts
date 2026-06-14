@@ -8486,8 +8486,6 @@ export class LookupTableBot extends ASolverBot {
     return {
       name: 'O(1) lookup table bot',
       author: 'Jirka Vrba',
-      description:
-        'This bot uses a precomputed lookup table with best entropy guess for any given evaluation.',
     };
   }
 
