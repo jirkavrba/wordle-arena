@@ -69,6 +69,10 @@ export class Wordle {
   }
 
   public createRawGuess(word: string): RawGuess {
+    if (word === undefined || word === null || typeof word !== 'string') {
+      throw new Error(`Guess must be a string. Used: '${word}'`);
+    }
+
     if (word.length !== Wordle.WordLength) {
       throw new Error(
         `Guess must be exactly '${Wordle.WordLength}' letters long.`,

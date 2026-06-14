@@ -11,12 +11,7 @@ export interface GuessLetter {
   status: LetterStatus;
 }
 
-export type RawGuess = [string, string, string, string, string];
+export type FiveArray<T> = [T, T, T, T, T];
 
-export type Guess = [
-  GuessLetter,
-  GuessLetter,
-  GuessLetter,
-  GuessLetter,
-  GuessLetter,
-];
+export type RawGuess = FiveArray<string>;
+export type Guess = FiveArray<GuessLetter>;
