@@ -25,7 +25,6 @@ export class CheatingBot extends ASolverBot {
     return {
       name: 'Cheating bot',
       author: 'Jirka Vrba',
-      description: 'Secret :3',
     };
   }
 

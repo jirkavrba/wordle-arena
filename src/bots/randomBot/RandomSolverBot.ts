@@ -7,8 +7,6 @@ export class RandomSolverBot extends ASolverBot {
     return {
       name: 'Rand-bot',
       author: 'Radek',
-      description:
-        'Picks random words from the valid word list and hopes for the best :).',
     };
   }
 

@@ -108,7 +108,6 @@ export class PatternBot extends ASolverBot {
     return {
       name: 'Pattern Bot',
       author: 'Radek',
-      description: 'Matches words in the word list using previous guesses.',
     };
   }
 

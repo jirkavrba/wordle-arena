@@ -18,10 +18,6 @@ interface BaseBotResult {
 
 interface NormalBotResult extends BaseBotResult {
   status: 'solved' | 'failed';
-  achievements: {
-    checkedValidWords: boolean;
-    usedWordList: boolean;
-  };
 }
 
 interface CrashedBotResult extends BaseBotResult {
