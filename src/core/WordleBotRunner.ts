@@ -32,7 +32,7 @@ export class WordleBotRunner {
     );
   }
 
-  public async sortResults(): Promise<void> {
+  public sortResults(): void {
     const botResults = this.botResults;
 
     const statusOrderMap: Record<BotStatus, number> = {

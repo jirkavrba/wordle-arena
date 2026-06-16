@@ -19,7 +19,7 @@ export const word = async (solutionWord: string) => {
   // let bots solve
   const wordleBotRunner = new WordleBotRunner(createAllBots(wordle));
 
-  wordleBotRunner.runBots();
+  await wordleBotRunner.runBots();
   wordleBotRunner.sortResults();
 
   console.log(`Bot results for '${wordle.solutionWord}':\n`);

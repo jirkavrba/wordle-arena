@@ -20,7 +20,7 @@ export const daily = async () => {
   // let bots solve
   const wordleBotRunner = new WordleBotRunner(createAllBots(wordle));
 
-  wordleBotRunner.runBots();
+  await wordleBotRunner.runBots();
   wordleBotRunner.sortResults();
 
   console.log(`Bot results of '${today.toLocaleDateString()}':\n`);
