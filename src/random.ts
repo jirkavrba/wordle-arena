@@ -1,5 +1,5 @@
 import { ResultsReport } from './core/utils/ResultsReport.ts';
-import { OverviewImage } from './core/overviewImage/OverviewImage.ts';
+import { OverviewImage } from './core/canvas/overviewImage/OverviewImage.ts';
 import { DiscordBot } from './core/discord/DiscordBot.ts';
 import { Wordle } from './core/nytimes/Wordle.ts';
 import { createAllBots } from './bots/bots.ts';
@@ -37,10 +37,10 @@ export const random = async () => {
   discordBot.sendMessage({
     type: 'attached-files',
     content: resultsReport.reportMessage,
-    attachedFiles: [overviewImage.overviewImage],
+    attachedFiles: [overviewImage.generatedImage],
   });
 
-  overviewImage.saveOverviewImage();
+  overviewImage.saveGeneratedImage();
 };
 
 if (import.meta.main) {

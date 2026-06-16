@@ -1,15 +1,14 @@
-export interface OverviewImageConfig {
+import type { OutputImageConfig } from '../OutputImageConfig.ts';
+
+export interface OverviewImageConfig extends OutputImageConfig {
   resultGridCols: number;
 
-  bgColor: string;
-  borderColor: string;
   greyColor: string;
   yellowColor: string;
   greenColor: string;
-  textColor: string;
-  paddingPx: number;
 
   resultBoxWidthPx: number;
+
   wordleBoxSizePx: number;
   wordleBoxMarginPx: number;
 }

@@ -1,8 +1,9 @@
 import { Wordle } from './core/nytimes/Wordle.ts';
 import { createAllBots } from './bots/bots.ts';
 import { WordleBotRunner } from './core/WordleBotRunner.ts';
+import { BenchmarkImage } from './core/canvas/benchmarkImage/BenchmarkImage.ts';
 
-type BotResultsAggregation = {
+export type BotResultsAggregation = {
   solvedChallenges: number;
   failedChallenges: number;
   averageGuesses: number;
@@ -38,7 +39,7 @@ export const benchmark = async () => {
       };
 
       const totalGuesses =
-          results[name].solvedChallenges + results[name].failedChallenges + 1;
+        results[name].solvedChallenges + results[name].failedChallenges + 1;
 
       switch (result.status) {
         case 'solved':
@@ -56,15 +57,20 @@ export const benchmark = async () => {
       }
 
       results[name].averageSolvingTimeMs +=
-          result.solvingTimeMs / totalGuesses -
-          results[name].averageSolvingTimeMs / Math.max(totalGuesses - 1, 1);
+        result.solvingTimeMs / totalGuesses -
+        results[name].averageSolvingTimeMs / Math.max(totalGuesses - 1, 1);
       results[name].averageGuesses +=
-          result.guesses.length / totalGuesses -
-          results[name].averageGuesses / Math.max(totalGuesses - 1, 1);
+        result.guesses.length / totalGuesses -
+        results[name].averageGuesses / Math.max(totalGuesses - 1, 1);
     });
   }
 
   console.log(results);
+
+  const benchmarkImage = new BenchmarkImage();
+
+  await benchmarkImage.generateBenchmarkImage(results);
+  benchmarkImage.saveGeneratedImage();
 };
 
 if (import.meta.main) {

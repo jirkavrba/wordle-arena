@@ -1,7 +1,7 @@
 import { createAllBots } from './bots/bots.ts';
 import { DiscordBot } from './core/discord/DiscordBot.ts';
 import { Wordle } from './core/nytimes/Wordle.ts';
-import { OverviewImage } from './core/overviewImage/OverviewImage.ts';
+import { OverviewImage } from './core/canvas/overviewImage/OverviewImage.ts';
 import { ResultsReport } from './core/utils/ResultsReport.ts';
 import { WordleBotRunner } from './core/WordleBotRunner.ts';
 
@@ -39,11 +39,11 @@ export const daily = async (sendToDiscord: boolean = true) => {
     discordBot.sendMessage({
       type: 'attached-files',
       content: resultsReport.reportMessage,
-      attachedFiles: [overviewImage.overviewImage],
+      attachedFiles: [overviewImage.generatedImage],
     });
   }
 
-  overviewImage.saveOverviewImage();
+  overviewImage.saveGeneratedImage();
 };
 
 if (import.meta.main) {
