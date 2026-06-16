@@ -27,7 +27,7 @@ export const word = async (solutionWord: string) => {
   // generate results
   const overviewImage = new OverviewImage();
   const resultsReport = new ResultsReport(
-    `Wordle Arena for the word '${wordle.solutionWord}' report:`,
+    `Wordle Arena for the word '**${wordle.solutionWord?.toUpperCase()}**' report:`,
   );
 
   await overviewImage.generateOverview(wordleBotRunner.botResults);
