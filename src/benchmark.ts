@@ -1,5 +1,5 @@
-import { createWordle } from "./actions/createWordle.ts";
-import { runBotsAndSortResults } from "./actions/runBotsAndSortResults.ts";
+import { createWordle } from './actions/createWordle.ts';
+import { runBotsAndSortResults } from './actions/runBotsAndSortResults.ts';
 
 type BotResultsAggregation = {
   solvedChallenges: number;
@@ -39,15 +39,15 @@ export const benchmark = async () => {
         results[name].solvedChallenges + results[name].failedChallenges + 1;
 
       switch (result.status) {
-        case "solved":
+        case 'solved':
           results[name].solvedChallenges++;
           break;
 
-        case "failed":
+        case 'failed':
           results[name].failedChallenges++;
           break;
 
-        case "crashed":
+        case 'crashed':
           results[name].failedChallenges++;
           results[name].wordsCausingCrash.push(word);
           break;
