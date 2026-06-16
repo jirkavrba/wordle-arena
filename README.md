@@ -2,8 +2,12 @@
 
 Today's wordle:
 
-<a href="https://wordle.titera.dev/">
+<a href="https://wordle.titera.dev/overview.png">
   <img src="https://wordle.titera.dev/overview.png" alt="Wordle Daily Overview" />
+</a>
+
+<a href="https://wordle.titera.dev/benchmark.png">
+  <img src="https://wordle.titera.dev/benchmark.png" alt="Wordle Benchmark" />
 </a>
 
 Make your fancy schmancy wordle guessing bot and battle it out in this Wordle (not associated in any way) Arena. >:)  
