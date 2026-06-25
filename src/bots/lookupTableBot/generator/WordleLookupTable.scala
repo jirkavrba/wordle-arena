@@ -138,12 +138,12 @@ object PatternTree {
 }
 
 def computeLookupTableTree(
-                            currentWord: String,
-                            lookupPath: Seq[String],
-                            remainingCandidates: Seq[String],
-                            wordlist: Seq[String],
-                            depth: Int = 1
-                          )(using cache: EvaluationCache): Option[PatternTree] = {
+  currentWord: String,
+  lookupPath: Seq[String],
+  remainingCandidates: Seq[String],
+  wordlist: Seq[String],
+  depth: Int = 1
+)(using cache: EvaluationCache): Option[PatternTree] = {
   if depth >= 6 then None
   else {
     val excluded = lookupPath ++ List(currentWord)
@@ -188,20 +188,16 @@ def main(): Unit = {
   lookupTableOption match {
     case None => throw new RuntimeException("Cannot write lookup table output, the constructed table is None.")
     case Some(lookupTable) => {
-      // Write json output
       {
         val writer = PrintWriter(File("./lookup-table.json"))
         try writer.write(lookupTable.toJson) finally writer.close()
       }
-
-      // Write dot output for graphviz
       {
         val writer = PrintWriter(File("./lookup-table.dot"))
         try writer.write(lookupTable.toDot()) finally writer.close()
       }
     }
   }
-
 
   println("We ball :)")
 }
